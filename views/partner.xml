@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="student_inhiret_view_form" model="ir.ui.view">
+        <field name="name">res.partner.form.inhiret.student</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+                 <xpath expr="//field[@name='category_id']" position="after">
+                     <field name="is_student"/>
+                 </xpath>
+               <xpath expr="//notebook" position="inside">
+                <page string="Other Info">
+                    <group>
+                        <field name="student_degree" string="Student Degree"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <record id="student_inhiret_action" model="ir.actions.act_window">
+        <field name="name">students</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('is_student','=',True)]</field>
+    </record>
+    <menuitem
+            id="menu_student_inhiret"
+            name="students"
+            action="student_inhiret_action"
+            parent="menu_training_center_root"
+            sequence="20"
+
+    />
+</odoo>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_instructor_list" model="ir.ui.view">
+       <field name="name">training.instuctor.list</field>
+        <field name="model">instructor</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="gender"/>
+                <field name="age"/>
+                <field name="hiring_date"/>
+                <field name="years_exp"/>
+                <field name="educational_Level"/>
+                <field name="active"/>
+                <field name="email"/>
+                <field name="course_ids"/>
+            </list>
+        </field>
+    </record>
+        <record id="view_instructor_form" model="ir.ui.view">
+       <field name="name">training.instuctor.form</field>
+        <field name="model">instructor</field>
+        <field name="arch" type="xml">
+           <form>
+               <header>
+                   <field name="instructor_state" widget="statusbar"/>
+                   <button name="action_change_hired" string="Hired" type="object" invisible="instructor_state =='hired' or instructor_state =='active' or instructor_state =='on_leave' or instructor_state =='terminated' " class="btn-primary"/>
+                   <button name="action_change_active" string="Active" type="object" invisible="instructor_state =='active'" class="btn-primary"/>
+                   <button name="action_change_on_leave" string="On leave" type="object" invisible="instructor_state =='on_leave' or instructor_state =='hired' or instructor_state =='terminated' " class="btn-primary"/>
+                   <button name="action_change_terminated" string="Terminated" type="object" invisible="instructor_state =='terminated' or instructor_state =='on_leave'" class="btn-primary"/>
+                      <button name="%(action_training_course)d"
+                    string="View Courses"
+                    type="action"
+                    class="btn-secondary"/>
+               </header>
+            <sheet>
+
+        <div class="oe_button_box" name="button_box">
+            <button class="oe_stat_button"
+                    type="object"
+                    name="action_view_related_courses_records"
+                    icon="fa-star">
+                <field name="my_courses"
+                       string="Courses"
+                       widget="statinfo"/>
+            </button>
+        </div>
+
+                    <div class="oe_title">
+        <label for="name" string="Name"/>
+        <h1>
+            <field name="name" placeholder="Write Instructor Name"/>
+        </h1>
+    </div>
+
+       <group>
+                  <group string="Personal Info">
+                        <field name="gender"/>
+                        <field name="age"/>
+                      <field name="email"/>
+                  </group>
+               <group string="Employment Information">
+                    <field name="hiring_date"/>
+                    <field name="years_exp"/>
+                    <field name="educational_Level"/>
+                    <field name="active"/>
+                   <field name="confirmed_courses"/>
+                   <field name="your_revenue"/>
+                   <field name="max_class_size"/>
+                   <field name="default_rate"/>
+                   <field name="note" invisible="active"/>
+
+               </group>
+           <notebook>
+               <page string="Courses">
+                   <field name="course_ids"/>
+               </page>
+           </notebook>
+      </group>
+                <chatter/>
+            </sheet>
+           </form>
+        </field>
+    </record>
+
+    <record id="view_instructor_search" model="ir.ui.view">
+        <field name="name">training.instructor.search</field>
+        <field name="model">instructor</field>
+        <field name="arch" type="xml">
+           <search>
+                <field name="name"/>
+                <field name="gender"/>
+                <field name="age"/>
+                <field name="email"/>
+
+               <filter name="gender_male" string="male" domain="[('gender','=' ,'male')]"/>
+               <filter name="gender_female" string="female" domain="[('gender','=','female')]"/>
+               <group>
+                   <filter name="gender_group_by" string="gender" context="{'group_by':'gender'}"/>
+               </group>
+           </search>
+        </field>
+    </record>
+    <record id="action_instructor" model="ir.actions.act_window">
+        <field name="name">instructor</field>
+        <field name="res_model">instructor</field>
+        <field name="view_mode">list,form</field>
+
+    </record>
+    <menuitem
+            id="instructor_menuitem"
+            name="instructor"
+            action="action_instructor"
+            parent="menu_training_center_root"
+            sequence="1"
+    />
+
+</odoo>

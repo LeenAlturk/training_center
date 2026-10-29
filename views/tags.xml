@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_tags_form" model="ir.ui.view">
+        <field name="name">tags.course.form</field>
+        <field name="model">tags.course</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                <field name="color" widget="color_picker"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="view_tags_list" model="ir.ui.view">
+        <field name="name">tags.course.list</field>
+        <field name="model">tags.course</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="color" widget="color_picker"/>
+            </list>
+        </field>
+    </record>
+
+
+    <record id="view_tag_search" model="ir.ui.view">
+        <field name="name">tags.course.search</field>
+        <field name="model">tags.course</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" widget="color_picker"/>
+                <group>
+                    <filter name="group_by_color" string ="Colors" context="{'group_by':'name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_tags" model="ir.actions.act_window">
+        <field name="name">Tags</field>
+        <field name="res_model">tags.course</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem
+            id="tags_menuitem"
+            name="Tags"
+            action="action_tags"
+            parent="menu_training_center_root"
+            sequence="4"
+    />
+</odoo>
